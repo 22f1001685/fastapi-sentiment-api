@@ -11,10 +11,16 @@ app = FastAPI(title="Sentiment API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+from fastapi import Response
+
+@app.options("/{full_path:path}")
+async def options_handler(full_path: str):
+    return Response(status_code=200)
 
 # ===============================
 # AI Pipe client
