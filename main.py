@@ -63,20 +63,9 @@ sentiment_schema = {
 @app.post("/comment", response_model=SentimentResponse)
 async def analyze_comment(data: CommentRequest):
     try:
-        response = client.chat.completions.create(
+        response = client.responses.create(
             model="gpt-4.1-mini",
-            messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "You are a sentiment classifier. "
-                        "Always return ONLY valid JSON with fields: "
-                        "sentiment (positive/negative/neutral) and rating (1-5)."
-                    ),
-                },
-                {
-                    "role": "user",
-                    "content": f"""
+            input=f"""
 Classify the sentiment.
 
 Rules:
@@ -85,14 +74,14 @@ Rules:
 - negative → rating 1 or 2
 
 Comment: {data.comment}
+
+Return ONLY JSON.
 """,
-                },
-            ],
             response_format={"type": "json_object"},
         )
 
         import json
-        result = json.loads(response.choices[0].message.content)
+        result = json.loads(response.output_text)
         return result
 
     except Exception as e:
