@@ -1,5 +1,5 @@
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Response
 from pydantic import BaseModel, Field
 from openai import OpenAI
 
@@ -15,12 +15,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-from fastapi import Response
-
-@app.options("/{full_path:path}")
-async def options_handler(full_path: str):
-    return Response(status_code=200)
 
 # ===============================
 # AI Pipe client
