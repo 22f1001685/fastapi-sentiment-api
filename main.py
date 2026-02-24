@@ -21,7 +21,7 @@ app.add_middleware(
 # ===============================
 client = OpenAI(
     api_key="eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjIyZjEwMDE2ODVAZHMuc3R1ZHkuaWl0bS5hYy5pbiJ9.tMkhIuW5LJ3OJWCHKIFvD8J3Cv6k9VkQatCCRfFQYVs",
-    base_url="https://aipipe.org/openai/v1"
+    base_url="https://api.aipipe.org/v1"
 )
 
 # ===============================
