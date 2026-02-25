@@ -48,15 +48,30 @@ async def analyze_comment(data: CommentRequest):
         prompt = f"""
 You are a strict sentiment classifier.
 
-Rules:
-- positive → rating 5
-- neutral → rating 3
-- negative → rating 1
+Analyze the sentiment of the comment and choose the MOST appropriate rating.
 
-Return ONLY valid JSON in this exact format:
+Rating scale (VERY IMPORTANT):
+
+1 = strongly negative (very bad, very dissatisfied, strong criticism)  
+2 = somewhat negative (complaints, disappointment, mediocre but leaning negative)  
+3 = neutral or mixed (balanced, acceptable, average, neither clearly good nor bad)  
+4 = somewhat positive (generally good, liked it, but not extremely enthusiastic)  
+5 = strongly positive (excellent, amazing, outstanding, very enthusiastic)
+
+Output rules:
+
+- sentiment must be one of: positive, negative, neutral  
+- rating must be an integer 1–5  
+- Return ONLY valid JSON  
+- No markdown  
+- No explanation  
+
+JSON format exactly:
+
 {{"sentiment":"positive|negative|neutral","rating":number}}
 
-Comment: {data.comment}
+Comment:
+{data.comment}
 """
 
         # ✅ REMOVED response_format (key fix)
